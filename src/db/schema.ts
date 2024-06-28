@@ -13,6 +13,6 @@ export const stats = pgTable('stats',{
   url : text('url').primaryKey(),
   latency : doublePrecision('latency').notNull(),
   status : boolean('status'),
-  time: time('time1'),
+  time: time('time'),
 })
 
