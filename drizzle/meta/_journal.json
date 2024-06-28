@@ -15,6 +15,13 @@
       "when": 1719574659811,
       "tag": "0001_clean_george_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1719583445101,
+      "tag": "0002_sleepy_reaper",
+      "breakpoints": true
     }
   ]
 }

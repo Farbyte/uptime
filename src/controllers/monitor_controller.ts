@@ -6,16 +6,16 @@ import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export const addMonitor = async (req: Request, res: Response) => {
-	const { name, url, method, latency } = req.body;
+	const { name, url, method } = req.body;
 
-	if (!name || !url || !latency) {
+	if (!name || !url ) {
 		return res.status(400).json({ error: "Invalid body" });
 	}
 
 	try {
 		await db
 			.insert(schema.monitors)
-			.values({ name, url, method, latency });
+			.values({ name, url, method });
 		res.json({ message: "New monitor added" });
 	} catch (error: any) {
 		res.status(500).json({
@@ -36,12 +36,12 @@ export const listMonitors = async (req: Request, res: Response) => {
 
 export const editMonitor = async (req: Request, res: Response) => {
 	const { name } = req.params;
-	const { url, method, latency } = req.body;
+	const { url, method } = req.body;
 
 	try {
 		const result = await db
 			.update(schema.monitors)
-			.set({ url, method, latency })
+			.set({ url, method })
 			.where(eq(schema.monitors.name, name))
 			.returning();
 
