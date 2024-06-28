@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch run index.ts",
-    "migrate" : "bun run src/db/migrate.ts"
+    "migrate": "bun run src/db/migrate.ts"
   },
   "peerDependencies": {
     "typescript": "^5.5.2"

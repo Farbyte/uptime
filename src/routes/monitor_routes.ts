@@ -1,5 +1,5 @@
 import express from 'express';
-import { addMonitor, listMonitors, editMonitor } from '../controllers/monitor_controller';
+import { addMonitor, editMonitor, listMonitors,  } from '../controllers/monitor_controller';
 
 const router = express.Router();
 
