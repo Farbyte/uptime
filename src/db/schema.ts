@@ -5,7 +5,7 @@ export const monitors = pgTable("monitors", {
   name: text('name').primaryKey(),
   url : text('url'),
   method : varchar('method',{length : 10}),
-  requestTime : integer('requestTime').notNull()
+  requestTime : integer('requestTime').notNull(),
 });
 
 

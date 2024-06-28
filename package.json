@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch run index.ts",
-    "migrate": "bun run schema && bun run src/db/migrate.ts ",
-    "schema" : "bunx drizzle-kit generate --dialect postgresql --schema ./src/db/schema.ts --out ./drizzle",
+    "migrate": "bunx drizzle-kit migrate",
+    "push":"bunx drizzle-kit push",
+    "schema" : "npx drizzle-kit generate --dialect postgresql --schema ./src/db/schema.ts --out ./drizzle",
     "studio": "bunx drizzle-kit studio"
   },
   "peerDependencies": {
