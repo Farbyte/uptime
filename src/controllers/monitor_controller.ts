@@ -6,7 +6,7 @@ import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export const addMonitor = async (req: Request, res: Response) => {
-	const { name, url, method } = req.body;
+	const { name, url, method ,requestTime} = req.body;
 
 	if (!name || !url ) {
 		return res.status(400).json({ error: "Invalid body" });
@@ -15,7 +15,7 @@ export const addMonitor = async (req: Request, res: Response) => {
 	try {
 		await db
 			.insert(schema.monitors)
-			.values({ name, url, method });
+			.values({ name, url, method,requestTime });
 		res.json({ message: "New monitor added" });
 	} catch (error: any) {
 		res.status(500).json({

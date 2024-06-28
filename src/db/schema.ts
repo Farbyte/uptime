@@ -1,11 +1,11 @@
 
-import { pgTable, serial, text, doublePrecision, varchar, boolean, time } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, doublePrecision, varchar, boolean, time, integer } from "drizzle-orm/pg-core";
 
 export const monitors = pgTable("monitors", {
-  id: serial("id").primaryKey(),
-  name: text('name').notNull(),
+  name: text('name').primaryKey(),
   url : text('url'),
   method : varchar('method',{length : 10}),
+  requestTime : integer('requestTime').notNull()
 });
 
 

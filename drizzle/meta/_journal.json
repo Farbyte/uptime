@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1719574058005,
-      "tag": "0000_oval_trauma",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1719574659811,
-      "tag": "0001_clean_george_stacy",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1719583445101,
-      "tag": "0002_sleepy_reaper",
+      "when": 1719591234867,
+      "tag": "0000_tearful_the_spike",
       "breakpoints": true
     }
   ]
