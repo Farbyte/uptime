@@ -1,21 +1,8 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 
-dotenv.config();
+// Bun automatically loads the DATABASE_URL from .env.local
+// Refer to: https://bun.sh/docs/runtime/env for more information
+const sql = neon(process.env.DATABASE_URL!);
 
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
-
-const pool = new Pool({
-  host: PGHOST,
-  database: PGDATABASE,
-  user: PGUSER,
-  password: PGPASSWORD,
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false, // Required if SSL mode is not set to 'require'
-  },
-  connectionTimeoutMillis: 5000, // Optional: Timeout in milliseconds
-  connectionString: `project=${ENDPOINT_ID}`, // Optional: Connection string options
-});
-
-export default pool;
+export const db = drizzle(sql);
