@@ -18,10 +18,6 @@ export const addMonitor = async (req: Request, res: Response) => {
 			await trx
 				.insert(schema.monitors)
 				.values({ name, url, method, requestTime });
-
-			await trx // Not tested yet ------------------------------------------------->>
-				.insert(schema.stats)
-				.values({ stats_url: url, latency: 0, status: false, time: new Date().toISOString() });
 		});
 
 		res.json({ message: "New monitor added and corresponding stats created" });

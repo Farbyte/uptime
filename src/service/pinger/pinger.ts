@@ -12,7 +12,7 @@ const pinger = async (links: string[]) => {
 				const res = await fetch(link);
 				const end = performance.now();
 				return {
-					stats_url: link,
+					statsUrl: link,
 					status: res.ok,
 					latency: end - start,
 					time : new Date(Date.now()).toISOString()
@@ -20,7 +20,7 @@ const pinger = async (links: string[]) => {
 			} catch (error: any) {
 				const end = performance.now();
 				return {
-					stats_url : link,
+					statsUrl : link,
 					status: "error",
 					latency: end - start,
 					error: error.message,
@@ -48,7 +48,7 @@ export const pingingService = async (PORT: number) => {
 		console.log(stats)
 
 
-		stats.map( async (stat) => {
+		await Promise.all(stats.map(async (stat) => {
 			console.log(JSON.stringify(stat))
 			const r = await fetch(`http://localhost:${PORT}/api/monitor/stats/`,{
 				headers : {
@@ -59,7 +59,7 @@ export const pingingService = async (PORT: number) => {
 			})
 			const jsonRes = await r.json()
 			console.log(jsonRes)
-		})
+		}))
 		const response = await fetch(`http://localhost:${PORT}/api/monitor/stats`,{
 			method : 'GET'
 		})

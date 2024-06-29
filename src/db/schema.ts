@@ -20,15 +20,3 @@ export const stats = pgTable('stats', {
   time: timestamp('time',{mode : 'string',withTimezone : false}),
 });
 
-// Define the relation from monitors to stats
-export const monitorsRelations = relations(monitors, ({ many }) => ({
-  stats: many(stats),
-}));
-
-// Define the relation from stats to monitors
-export const statsRelations = relations(stats, ({ one }) => ({
-  monitor: one(monitors, {
-    fields: [stats.statsUrl],
-    references: [monitors.url],
-  }),
-}));
