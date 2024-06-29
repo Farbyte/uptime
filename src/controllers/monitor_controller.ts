@@ -4,7 +4,7 @@ import { type Request, type Response } from "express";
 import { db } from "../db/db";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
-
+import { setTime } from "../..";
 //----------------------- Not tested yet -----------------------------------//
 export const addMonitor = async (req: Request, res: Response) => {
 	const { name, url, method, requestTime } = req.body;
@@ -58,3 +58,24 @@ export const editMonitor = async (req: Request, res: Response) => {
 		res.status(500).json({ error: error.message });
 	}
 };
+
+
+export const editTimeout = async (req: Request, res: Response) => {
+    const { time } = req.params;
+	console.log(time)
+    try {
+		if (!time) {
+            throw new Error('Time parameter is missing');
+        }
+        const Time = parseInt(time);
+        if (!isNaN(Time)) {
+            // Assuming setTime is defined elsewhere
+            setTime(Time);
+            res.status(200).json({ timeSet: true });
+        } else {
+            throw new Error('Invalid time parameter');
+        }
+    } catch (error : any) {
+        res.status(500).json({ chadibanyan : error.message });
+    }
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { addMonitor, editMonitor, listMonitors} from '../controllers/monitor_controller';
+import { addMonitor, editMonitor, listMonitors,editTimeout} from '../controllers/monitor_controller';
 import { addPingStat, listPingStats, editPingStat } from '../controllers/ping_controller';
 const router = express.Router();
 
@@ -9,4 +9,5 @@ router.put('/monitor/:name', editMonitor);
 router.post('/monitor/stats/',addPingStat);
 router.get('/monitor/stats',listPingStats);
 router.put('/monitor/stats/:name',editPingStat);
+router.put('/monitor/timeout/:time',editTimeout)
 export default router;
