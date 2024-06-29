@@ -1,36 +1,34 @@
 /** @format */
 
-import { relations } from "drizzle-orm";
-import {
-	pgTable,
-	serial,
-	text,
-	doublePrecision,
-	varchar,
-	boolean,
-	time,
-	integer,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, doublePrecision, varchar, boolean, time, integer } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
-export const monitors = pgTable("monitors", {
-	name: text("name").primaryKey(),
-	url: text("url"),
-	method: varchar("method", { length: 10 }),
-	requestTime: integer("requestTime").notNull(),
+// Define the monitors table
+export const monitors = pgTable('monitors', {
+  name: text('name').primaryKey(),
+  url: text('url').notNull(),
+  method: varchar('method', { length: 10 }),
+  requestTime: integer('requestTime').notNull(),
 });
 
-export const stats = pgTable("stats", {
-	id: serial("id").primaryKey(),
-	stats_url: text("stats_url"), 
-	latency: doublePrecision("latency").notNull(),
-	status: boolean("status"),
-	time: time("time"),
+// Define the stats table
+export const stats = pgTable('stats', {
+  id: serial('id').primaryKey(),
+  statsUrl: text('stats_url').notNull(),
+  latency: doublePrecision('latency').notNull(),
+  status: boolean('status'),
+  time: time('time'),
 });
 
-//----------------------------- Not tested yet --------------------------------//
-export const monitorRelations = relations(monitors, ({ one }) => ({
-	stats: one(stats, { 
-		fields: [monitors.url],
-		references: [stats.stats_url],
-	}),
+// Define the relation from monitors to stats
+export const monitorsRelations = relations(monitors, ({ many }) => ({
+  stats: many(stats),
+}));
+
+// Define the relation from stats to monitors
+export const statsRelations = relations(stats, ({ one }) => ({
+  monitor: one(monitors, {
+    fields: [stats.statsUrl],
+    references: [monitors.url],
+  }),
 }));
