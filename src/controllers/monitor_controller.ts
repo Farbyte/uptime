@@ -5,21 +5,29 @@ import { db } from "../db/db";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 
+//----------------------- Not tested yet -----------------------------------//
 export const addMonitor = async (req: Request, res: Response) => {
-	const { name, url, method ,requestTime} = req.body;
+	const { name, url, method, requestTime } = req.body;
 
-	if (!name || !url ) {
+	if (!name || !url) {
 		return res.status(400).json({ error: "Invalid body" });
 	}
 
 	try {
-		await db
-			.insert(schema.monitors)
-			.values({ name, url, method,requestTime });
-		res.json({ message: "New monitor added" });
+		await db.transaction(async (trx) => {
+			await trx
+				.insert(schema.monitors)
+				.values({ name, url, method, requestTime });
+
+			await trx // Not tested yet ------------------------------------------------->>
+				.insert(schema.stats)
+				.values({ stats_url: url, latency: 0, status: false, time: new Date().toISOString() });
+		});
+
+		res.json({ message: "New monitor added and corresponding stats created" });
 	} catch (error: any) {
 		res.status(500).json({
-			message: "Failed to save new monitor",
+			message: "Failed to save new monitor and corresponding stats",
 			error: error.message,
 		});
 	}

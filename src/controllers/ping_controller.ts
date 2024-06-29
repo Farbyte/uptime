@@ -6,16 +6,16 @@ import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export const addPingStat = async (req: Request, res: Response) => {
-	const { url, latency, status, time } = req.body;
+	const { stats_url, latency, status, time } = req.body;
 
-	if (!url || latency == null || status == null || !time) {
+	if (!stats_url || latency == null || status == null || !time) {
 		return res.status(400).json({ error: "Invalid body" });
 	}
 
 	try {
 		await db
 			.insert(schema.stats)
-			.values({ url, latency, status, time });
+			.values({ stats_url, latency, status, time });
 		res.json({ message: "Ping stat added" });
 	} catch (error: any) {
 		res.status(500).json({
@@ -35,14 +35,14 @@ export const listPingStats = async (req: Request, res: Response) => {
 };
 
 export const editPingStat = async (req: Request, res: Response) => {
-	const { url } = req.params;
+	const { stats_url } = req.params;
 	const { latency, status, time } = req.body;
 
 	try {
 		const result = await db
 			.update(schema.stats)
 			.set({ latency, status, time })
-			.where(eq(schema.stats.url, url))
+			.where(eq(schema.stats.stats_url, stats_url))
 			.returning();
 
 		if (result.length === 0) {
