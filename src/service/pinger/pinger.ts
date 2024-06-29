@@ -1,7 +1,3 @@
-/** @format */
-
-import { application } from "express";
-
 const PORT: number = parseInt(process.env.PORT as string, 10) || 3000;
 
 const pinger = async (links: string[]) => {
