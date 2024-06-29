@@ -1,7 +1,6 @@
 /** @format */
 
 import { pgTable, serial, text, doublePrecision, varchar, boolean, time, integer, timestamp } from 'drizzle-orm/pg-core';
-import { relations } from 'drizzle-orm';
 
 // Define the monitors table
 export const monitors = pgTable('monitors', {
