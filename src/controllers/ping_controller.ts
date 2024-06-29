@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 
 export const addPingStat = async (req: Request, res: Response) => {
 	const { statsUrl, latency, status, time } = req.body;
+	//console.log(`stats url = ${statsUrl} latency = ${latency} status = ${status} time = ${time}`)
 	console.log(
 		`stats url = ${statsUrl} latency = ${latency} status = ${status} time = ${time}`
 	);

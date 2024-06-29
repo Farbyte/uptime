@@ -34,6 +34,7 @@ const pinger = async (links: string[]) => {
 };
 
 export const pingingService = async (PORT: number) => {
+
 	try {
 		const res = await fetch(`http://localhost:${PORT}/api/monitor`, {
 			method: "GET",
@@ -45,11 +46,11 @@ export const pingingService = async (PORT: number) => {
 		const links = data.results.map((value: any) => value.url);
 
 		const stats = await pinger(links);
-		console.log(stats)
+		//console.log(stats)
 
 
 		await Promise.all(stats.map(async (stat) => {
-			console.log(JSON.stringify(stat))
+			//console.log(JSON.stringify(stat))
 			const r = await fetch(`http://localhost:${PORT}/api/monitor/stats/`,{
 				headers : {
 					'Content-Type' : 'application/json',
@@ -58,14 +59,14 @@ export const pingingService = async (PORT: number) => {
 				body : JSON.stringify(stat)
 			})
 			const jsonRes = await r.json()
-			console.log(jsonRes)
+			//console.log(jsonRes)
 		}))
 		const response = await fetch(`http://localhost:${PORT}/api/monitor/stats`,{
 			method : 'GET'
 		})
 		
 		const d = await response.json();
-		console.log(d)
+		//console.log(d)
 	} catch (error: any) {
 		console.error(`Error in pingingService: ${error.message}`);
 	}
