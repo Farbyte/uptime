@@ -63,7 +63,7 @@ export const specificPingStat = async (req: Request, res: Response) => {
 
 	try {
 		const urlResult = await db
-			.select(schema.monitors.url)
+			.select({url: schema.monitors.url})
 			.from(schema.monitors)
 			.where(eq(schema.monitors.name, name));
 
@@ -71,7 +71,7 @@ export const specificPingStat = async (req: Request, res: Response) => {
 			return res.status(404).json({ error: "Monitor not found" });
 		}
 
-		const url = urlResult[0].url;
+		const {url} = urlResult[0];
 
 		const result = await db
 			.select()
