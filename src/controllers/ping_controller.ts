@@ -7,9 +7,9 @@ import { eq } from "drizzle-orm";
 
 export const addPingStat = async (req: Request, res: Response) => {
 	const { stats_url, latency, status, time } = req.body;
-
+	console.log(`stats url = ${stats_url} latency = ${latency} status = ${status} time = ${time}`)
 	if (!stats_url || latency == null || status == null || !time) {
-		return res.status(400).json({ error: "Invalid body" });
+		return res.status(400).json({ error: "Invalid body"});
 	}
 
 	try {

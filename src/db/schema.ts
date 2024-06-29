@@ -1,6 +1,6 @@
 /** @format */
 
-import { pgTable, serial, text, doublePrecision, varchar, boolean, time, integer } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, doublePrecision, varchar, boolean, time, integer, timestamp } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Define the monitors table
@@ -17,7 +17,7 @@ export const stats = pgTable('stats', {
   statsUrl: text('stats_url').notNull(),
   latency: doublePrecision('latency').notNull(),
   status: boolean('status'),
-  time: time('time'),
+  time: timestamp('time',{mode : 'string',withTimezone : false}),
 });
 
 // Define the relation from monitors to stats
